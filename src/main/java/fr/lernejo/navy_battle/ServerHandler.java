@@ -1,5 +1,8 @@
 package fr.lernejo.navy_battle;
 
+import java.io.IOException;
+import java.util.UUID;
+
 import com.sun.net.httpserver.HttpServer;
 
 import org.json.JSONObject;
@@ -8,9 +11,6 @@ import fr.lernejo.navy_battle.assets.Coordinates;
 import fr.lernejo.navy_battle.assets.FireResult;
 import fr.lernejo.navy_battle.assets.Option;
 import fr.lernejo.navy_battle.assets.ServerInfo;
-
-import java.io.IOException;
-import java.util.UUID;
 
 public class ServerHandler extends Server {
     private final Option<ServerInfo> localServer = new Option<>();
@@ -33,7 +33,7 @@ public class ServerHandler extends Server {
 
     @Override
     public void createContextes(HttpServer server) {
-        server.createContext("/ping", s -> new PingHandler());
+        server.createContext("/ping", new PingHandler());
         server.createContext("/api/game/start", s -> startGame(new RequestHandler(s)));
         server.createContext("/api/game/fire", s -> handleFire(new RequestHandler(s)));
     }
